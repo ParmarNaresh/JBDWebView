@@ -1,11 +1,12 @@
 package com.jbdinfotech.jbdwebview.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.fragment.app.Fragment
+import com.jbdinfotech.jbdwebview.utility.ConstantFile.Companion.PRIVACY_POLICY_FILE_PATH
 import com.jbdinfotech.jbdwebview.R
 
 
@@ -21,10 +22,10 @@ class PrivacyPolicyFragment : Fragment() {
         return view
     }
 
-    fun initAllControls(view: View)
+    private fun initAllControls(view: View)
     {
-        val webView=view.findViewById<WebView>(R.id.webView);
-        webView.loadUrl("file:///android_asset/privacy_policy.html");
+        val webView=view.findViewById<WebView>(R.id.webView)
+        webView.loadUrl(PRIVACY_POLICY_FILE_PATH)
     }
 
 }

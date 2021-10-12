@@ -13,12 +13,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initAllControls()
     }
-    fun initAllControls()
+    private fun initAllControls()
     {
         supportActionBar?.hide()
-        Handler(Looper.myLooper()!!).postDelayed(Runnable { startNewActivity() },100);
+        Handler(Looper.myLooper()!!).postDelayed({ startNewActivity() },3000)
     }
-    fun startNewActivity()
+    private fun startNewActivity()
     {
         val intent= Intent(this, HomeActivity::class.java)
         startActivity(intent)

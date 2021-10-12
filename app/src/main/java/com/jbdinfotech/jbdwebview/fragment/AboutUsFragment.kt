@@ -6,23 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import com.jbdinfotech.jbdwebview.utility.ConstantFile
 import com.jbdinfotech.jbdwebview.R
 
-class AboutUsFrament : Fragment() {
+class AboutUsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view= inflater.inflate(R.layout.fragment_about_us_frament, container, false)
+        val view: View? = inflater.inflate(R.layout.fragment_about_us_frament, container, false)
         initAllControls(view)
-        return view;
-        // Inflate the layout for this fragment
+        return view
     }
 
-    fun initAllControls(view:View)
-    {
-        val webView=view.findViewById<WebView>(R.id.webView);
-        webView.loadUrl("file:///android_asset/about_us.html");
+    private fun initAllControls(view: View?) {
+        val webView = view?.findViewById<WebView>(R.id.webView)
+        webView?.loadUrl(ConstantFile.ABOUT_US_FILE_PATH)
     }
 }

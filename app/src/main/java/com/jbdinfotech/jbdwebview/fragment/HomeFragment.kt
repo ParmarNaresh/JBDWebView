@@ -1,6 +1,5 @@
 package com.jbdinfotech.jbdwebview.fragment
 
-import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
@@ -12,19 +11,16 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.jbdinfotech.jbdwebview.ConstantFile
+import com.jbdinfotech.jbdwebview.utility.ConstantFile
+import com.jbdinfotech.jbdwebview.utility.IOnBackPressed
 import com.jbdinfotech.jbdwebview.R
-import com.jbdinfotech.jbdwebview.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IOnBackPressed {
 
-    lateinit var progress: ProgressBar
+    private lateinit var progress: ProgressBar
+    private lateinit var webView: WebView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,31 +29,31 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         initAllControls(view)
-        return view;
+        return view
     }
 
-    fun initAllControls(view: View) {
-        val webView = view.findViewById<WebView>(R.id.webView);
-        progress = view.findViewById<ProgressBar>(R.id.progressBar);
+    private fun initAllControls(view: View) {
+        view.findViewById<WebView>(R.id.webView).also { webView = it }
+        view.findViewById<ProgressBar>(R.id.progressBar).also { progress = it }
         val setting = webView.settings
         setting.javaScriptEnabled = true
         setting.allowFileAccess = true
         setting.loadsImagesAutomatically = true
-        webView.webViewClient = MyWebViewClient(progress);
+        webView.webViewClient = MyWebViewClient(progress)
         webView.loadUrl(ConstantFile.WEBSITE_URL)
 
     }
 
-    class MyWebViewClient(val progress: ProgressBar) : WebViewClient() {
+    class MyWebViewClient(private val progress: ProgressBar) : WebViewClient() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            progress.setVisibility(View.VISIBLE);
+            progress.visibility = View.VISIBLE
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            progress.setVisibility(View.GONE);
+            progress.visibility = View.GONE
 
         }
 
@@ -66,7 +62,7 @@ class HomeFragment : Fragment() {
             view: WebView?,
             request: WebResourceRequest?
         ): Boolean {
-            val url: String = request?.url.toString();
+            val url: String = request?.url.toString()
             view?.loadUrl(url)
             return true
         }
@@ -83,6 +79,16 @@ class HomeFragment : Fragment() {
         ) {
 
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        if (webView.canGoBack()) {
+            webView.goBack()
+            return false
+        }
+        return true
+
+
     }
 
 

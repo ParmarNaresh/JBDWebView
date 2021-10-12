@@ -1,11 +1,12 @@
 package com.jbdinfotech.jbdwebview.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.fragment.app.Fragment
+import com.jbdinfotech.jbdwebview.utility.ConstantFile.Companion.TERMS_CONDITION_FILE_PATH
 import com.jbdinfotech.jbdwebview.R
 
 
@@ -15,16 +16,15 @@ class TermsAndConditionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_terms_and_condition, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_terms_and_condition, container, false)
         initAllControls(view)
-        return view;
+        return view
     }
 
-    fun initAllControls(view: View)
-    {
-        val webView=view.findViewById<WebView>(R.id.webView);
-        webView.loadUrl("file:///android_asset/terms_condition.html");
+    private fun initAllControls(view: View) {
+        val webView = view.findViewById<WebView>(R.id.webView)
+        webView.loadUrl(TERMS_CONDITION_FILE_PATH)
     }
 
 
